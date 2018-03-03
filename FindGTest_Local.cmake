@@ -1,9 +1,17 @@
 ################################################################################
 # Copyright (c) 2018 David D. Marshall <ddmarsha@calpoly.edu>
 #
-# All rights reserved. Licensed under the MIT License. See LICENSE file in the
-# project root for full license information.
-################################################################################
+# This program and the accompanying materials are made
+# available under the terms of the Eclipse Public License 2.0
+# which is available at https://www.eclipse.org/legal/epl-2.0/
+#
+# See LICENSE.md file in the project root for full license information.
+#
+# SPDX-License-Identifier: EPL-2.0
+#
+# Contributors:
+#    David D. Marshall - initial code and implementation
+###############################################################################
 
 ################################################################################
 # Setup Google Test 
@@ -38,7 +46,11 @@ if(NOT GTEST_FOUND)
     #
     # determine the correct file name to be used for installation
     #
-    set (GTEST_PACKAGE_FILENAME "${PROJECT_SOURCE_DIR}/cmake/external/googletest/googletest-release-${GTEST_VERSION_REQ}.tar.gz")
+    find_path(GTest_Srcs_Dir 
+              NAMES FindGTest_Local.cmake 
+              PATHS "${PROJECT_SOURCE_DIR}/*" 
+              NO_PACKAGE_ROOT_PATH)
+    set (GTEST_PACKAGE_FILENAME "${GTest_Srcs_Dir}/external/googletest/googletest-release-${GTEST_VERSION_REQ}.tar.gz")
     set (GTEST_BINARY_DIR "${PROJECT_BINARY_DIR}/external/googletest/")
     if (NOT EXISTS ${GTEST_PACKAGE_FILENAME})
       if (NOT GTest_Local_FIND_QUIETLY)
@@ -51,7 +63,7 @@ if(NOT GTEST_FOUND)
     
     # configure the project
     if (GTEST_VERSION_OK)
-      configure_file(cmake/googletest-CMakeLists.txt.in
+      configure_file(${GTest_Srcs_Dir}/googletest-CMakeLists.txt.in
                      ${GTEST_BINARY_DIR}/CMakeLists.txt)
       message(STATUS "Need to download specific version if asked")
       execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
