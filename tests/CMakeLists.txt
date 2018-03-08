@@ -17,5 +17,4 @@ cmake_minimum_required(VERSION 3.0)
 
 add_subdirectory("check_version_req")
 add_subdirectory("parse_version")
-add_subdirectory("eigen")
-add_subdirectory("gtest")
+

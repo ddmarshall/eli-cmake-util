@@ -15,16 +15,21 @@
 #
 # - Parses a version string to get the major, minor, and patch numbers
 #
-#   This function takes a version string and extracts the major, minor, and 
-#   patch values. The input terms are:
-#   * major_out - The variable to store the major version in
-#   * minor_out - The variable to store the minor version in
-#   * patch_out - The variable to store the patch version in
+#   This function takes a version string and extracts the major, minor, patch, 
+#   and tweak values. The input terms are:
+#   * package_name - The name of the package to prepend to variable names that 
+#                    will be used to store results in PARENT_SCOPE
 #   * version_in - the version string to be parsed
+#
+#   These variables will be set in the parent scope:
+#   * <package_name>_MAJOR_VERSION - Store the major version
+#   * <package_name>_MINOR_VERSION - Store the minor version
+#   * <package_name>_PATCH_VERSION - Store the patch version
+#   * <package_name>_TWEAK_VERSION - Store the tweak version
 #
 ################################################################################
 
-function(PARSE_VERSION major_name_ minor_name_ patch_name_ version_in)
+function(PARSE_VERSION package_name_ version_in)
   string(REPLACE "." ";" _version_list ${version_in})
   list(LENGTH _version_list _version_list_length)
   if (_version_list_length GREATER 0)
@@ -42,8 +47,14 @@ function(PARSE_VERSION major_name_ minor_name_ patch_name_ version_in)
   else()
     unset(_patch_version)
   endif()
+  if (_version_list_length GREATER 3)
+    list(GET _version_list 3 _tweak_version)
+  else()
+    unset(_teak_version)
+  endif()
 
-  set(${major_name_} ${_major_version} PARENT_SCOPE)
-  set(${minor_name_} ${_minor_version} PARENT_SCOPE)
-  set(${patch_name_} ${_patch_version} PARENT_SCOPE)
+  set(${package_name_}_MAJOR_VERSION ${_major_version} PARENT_SCOPE)
+  set(${package_name_}_MINOR_VERSION ${_minor_version} PARENT_SCOPE)
+  set(${package_name_}_PATCH_VERSION ${_patch_version} PARENT_SCOPE)
+  set(${package_name_}_TWEAK_VERSION ${_tweak_version} PARENT_SCOPE)
 endfunction()
