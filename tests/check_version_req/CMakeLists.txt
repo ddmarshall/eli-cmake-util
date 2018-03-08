@@ -37,7 +37,7 @@ if ( NOT (TEST_RESPONSE_FLAG EQUAL cvr) )
   message(ERROR " For value ${TEST_VERSION_STRING}"
                 " expected ${TEST_RESPONSE_FLAG} but got ${cvr}")
 else()
-  message(STATUS " Received correct"
+  message(STATUS "Received correct"
                  " flag for ${TEST_VERSION_STRING}")
 endif()
 
@@ -52,7 +52,7 @@ if ( NOT (TEST_RESPONSE_FLAG EQUAL cvr) )
   message(ERROR " For value ${TEST_VERSION_STRING}"
                 " expected ${TEST_RESPONSE_FLAG} but got ${cvr}")
 else()
-  message(STATUS " Received correct flag for ${TEST_VERSION_STRING}")
+  message(STATUS "Received correct flag for ${TEST_VERSION_STRING}")
 endif()
 
 #
@@ -66,7 +66,7 @@ if ( NOT (TEST_RESPONSE_FLAG EQUAL cvr) )
   message(ERROR " For value ${TEST_VERSION_STRING}"
                 " expected ${TEST_RESPONSE_FLAG} but got ${cvr}")
 else()
-  message(STATUS " Received correct flag for ${TEST_VERSION_STRING}")
+  message(STATUS "Received correct flag for ${TEST_VERSION_STRING}")
 endif()
 
 #
@@ -80,6 +80,6 @@ if ( NOT (TEST_RESPONSE_FLAG EQUAL cvr) )
   message(ERROR " For value ${TEST_VERSION_STRING}"
                 " expected ${TEST_RESPONSE_FLAG} but got ${cvr}")
 else()
-  message(STATUS " Received correct flag for ${TEST_VERSION_STRING}")
+  message(STATUS "Received correct flag for ${TEST_VERSION_STRING}")
 endif()
 
