@@ -13,7 +13,7 @@
 #    David D. Marshall - initial code and implementation
 ################################################################################
 
-cmake_minimum_required(VERSION 3.0)
+cmake_minimum_required(VERSION 3.1)
 
 add_subdirectory("check_version_req")
 add_subdirectory("parse_version")

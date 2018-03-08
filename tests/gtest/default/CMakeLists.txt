@@ -13,7 +13,7 @@
 #    David D. Marshall - initial code and implementation
 ################################################################################
 #
-# - Test the parse_version function
+# - Test the FindGTest_Local function
 #
 
 cmake_minimum_required(VERSION 3.0)
@@ -21,6 +21,18 @@ cmake_minimum_required(VERSION 3.0)
 # add the project specific cmake files to module path
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
                       ${PROJECT_SOURCE_DIR}
-                      ${PROJECT_SOURCE_DIR}/..)
+                      ${PROJECT_SOURCE_DIR}/../../..)
 
+# test finding googletest
+find_package(GTest_Local)
+
+if (NOT GTEST_FOUND)
+  message(FATAL_ERROR " Could not find googletest")
+endif()
+
+message(STATUS "GTEST_FOUND=${GTEST_FOUND}")
+message(STATUS "GTEST_INCLUDE_DIRS=${GTEST_INCLUDE_DIRS}")
+message(STATUS "GTEST_LIBRARIES=${GTEST_LIBRARIES}")
+message(STATUS "GTEST_MAIN_LIBRARIES=${GTEST_MAIN_LIBRARIES}")
+message(STATUS "GTEST_BOTH_LIBRARIES=${GTEST_BOTH_LIBRARIES}")
 
