@@ -40,17 +40,24 @@ macro(_eigen3_check_version)
   set(EIGEN3_MINOR_VERSION "${CMAKE_MATCH_1}")
 
   set(EIGEN3_VERSION ${EIGEN3_WORLD_VERSION}.${EIGEN3_MAJOR_VERSION}.${EIGEN3_MINOR_VERSION})
-  if(${EIGEN3_VERSION} VERSION_LESS ${Eigen3_FIND_VERSION})
-    set(EIGEN3_VERSION_OK FALSE)
-  else(${EIGEN3_VERSION} VERSION_LESS ${Eigen3_FIND_VERSION})
-    set(EIGEN3_VERSION_OK TRUE)
-  endif(${EIGEN3_VERSION} VERSION_LESS ${Eigen3_FIND_VERSION})
+  if(${Eigen3_FIND_VERSION_EXACT})
+    if(EIGEN3_VERSION VERSION_EQUAL EIGEN3_FIND_VERSION)
+      set(EIGEN3_VERSION_OK TRUE)
+    else()
+      set(EIGEN3_VERSION_OK FALSE)
+    endif()
+  else()
+    if(${EIGEN3_VERSION} VERSION_LESS ${Eigen3_FIND_VERSION})
+      set(EIGEN3_VERSION_OK FALSE)
+    else(${EIGEN3_VERSION} VERSION_LESS ${Eigen3_FIND_VERSION})
+      set(EIGEN3_VERSION_OK TRUE)
+    endif(${EIGEN3_VERSION} VERSION_LESS ${Eigen3_FIND_VERSION})
+  endif()
 
-  if(NOT EIGEN3_VERSION_OK)
-
+  if(NOT EIGEN3_VERSION_OK AND (NOT Eigen3_FIND_QUIETLY) )
     message(STATUS "Eigen3 version ${EIGEN3_VERSION} found in ${EIGEN3_INCLUDE_DIR}, "
                    "but at least version ${Eigen3_FIND_VERSION} is required")
-  endif(NOT EIGEN3_VERSION_OK)
+  endif()
 endmacro(_eigen3_check_version)
 
 if (EIGEN3_INCLUDE_DIR)
@@ -70,10 +77,13 @@ else (EIGEN3_INCLUDE_DIR)
 
   if(EIGEN3_INCLUDE_DIR)
     _eigen3_check_version()
+    set(EIGEN3_FOUND ${EIGEN3_VERSION_OK})
   endif(EIGEN3_INCLUDE_DIR)
 
   include(FindPackageHandleStandardArgs)
-  find_package_handle_standard_args(Eigen3 DEFAULT_MSG EIGEN3_INCLUDE_DIR EIGEN3_VERSION_OK)
+  find_package_handle_standard_args(Eigen3 DEFAULT_MSG EIGEN3_FOUND 
+                                                       EIGEN3_INCLUDE_DIR
+                                                       EIGEN3_VERSION)
 
   mark_as_advanced(EIGEN3_INCLUDE_DIR)
 

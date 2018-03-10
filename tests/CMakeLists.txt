@@ -13,17 +13,8 @@
 #    David D. Marshall - initial code and implementation
 ################################################################################
 
-cmake_minimum_required(VERSION 2.8.2)
+cmake_minimum_required(VERSION 3.1)
 
-project(googletest-download NONE)
+add_subdirectory("check_version_req")
+add_subdirectory("parse_version")
 
-include(ExternalProject)
-ExternalProject_Add(googletest
-                    URL               @GTEST_PACKAGE_FILENAME@
-                    PREFIX            @GTEST_BINARY_DIR@
-                    CONFIGURE_COMMAND ""
-                    UPDATE_COMMAND    ""
-                    BUILD_COMMAND     ""
-                    INSTALL_COMMAND   ""
-                    TEST_COMMAND      ""
-)
