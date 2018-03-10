@@ -220,8 +220,8 @@ if(NOT GTEST_FOUND)
   #
   # report the final results of the searches
   #
-  FIND_PACKAGE_HANDLE_STANDARD_ARGS(GTest_Local DEFAULT_MSG GTEST_FOUND
-                                                            GTEST_VERSION
+  FIND_PACKAGE_HANDLE_STANDARD_ARGS(GTest_Local DEFAULT_MSG GTEST_VERSION
+                                                            GTEST_FOUND
                                                             GTEST_INCLUDE_DIRS
                                                             GTEST_LIBRARIES
                                                             GTEST_MAIN_LIBRARIES
