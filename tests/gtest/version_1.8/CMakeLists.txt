@@ -31,9 +31,9 @@ if (NOT GTEST_FOUND)
   message(FATAL_ERROR " Could not find googletest")
 endif()
 
-if (GTEST_VERSION VERSION_LESS _gt_version)
-  message(FATAL_ERROR " Found googletest version ${GTEST_VERSION} but wanted"
-                      " at least version ${_gt_version}.0")
+if (NOT (GTEST_VERSION VERSION_EQUAL "${_gt_version}.0"))
+  message(FATAL_ERROR " Found googletest version ${GTEST_VERSION} but expected"
+                      " version ${_gt_version}.0")
 endif()
 message(STATUS "GTEST_FOUND=${GTEST_FOUND}")
 message(STATUS "GTEST_INCLUDE_DIRS=${GTEST_INCLUDE_DIRS}")
