@@ -59,6 +59,7 @@ if(NOT GTEST_FOUND)
   #
   include(${_this_dir}/check_version_req.cmake)
   include(${_this_dir}/parse_version.cmake)
+  include(FindPackageHandleStandardArgs)
   include(ExternalProject)
 
   #
@@ -119,17 +120,9 @@ if(NOT GTEST_FOUND)
   endif()
 
   #
-  # if found package using standard search then add default targets
+  # if couldn't find package using standard search then use local version
   #
-  if (GTEST_FOUND)
-    add_custom_target(gtest)
-    add_custom_target(gtest_main)
-    
-    message(ERROR "Need to determine what version number was found.")
-  #
-  # else couldn't find package using standard search then use local version
-  #
-  else()
+  if (NOT GTEST_FOUND)
     set(GTEST_FOUND false)
     unset(GTEST_VERSION)
     unset(GTEST_INCLUDE_DIRS)
@@ -188,6 +181,7 @@ if(NOT GTEST_FOUND)
                           URL_HASH SHA512=${_gtest_sha512}
                           CMAKE_ARGS      -DCMAKE_INSTALL_PREFIX=${GTEST_BINARY_DIR}
                                           -DCMAKE_INSTALL_MESSAGE=NEVER
+                                          -Dgtest_disable_pthreads=TRUE
                                           -Wno-dev
                           INSTALL_COMMAND ${CMAKE_COMMAND} 
                                           --build ${GTEST_BINARY_DIR}/src/googletest-build
@@ -197,12 +191,13 @@ if(NOT GTEST_FOUND)
       # set the variables that are needed out of this
       #
       ExternalProject_Get_Property(googletest INSTALL_DIR)
+
       set(GTEST_FOUND true)
       set(GTEST_VERSION ${_gtest_version})
       set(GTEST_INCLUDE_DIRS "${INSTALL_DIR}/include/")
       set(GTEST_LIBRARIES "${INSTALL_DIR}/lib/libgtest.a")
       set(GTEST_MAIN_LIBRARIES "${INSTALL_DIR}/lib/libgtest_main.a")
-      set(GTEST_BOTH_LIBRARIES "${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES}")
+      set(GTEST_BOTH_LIBRARIES ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES})
 
       #
       # Prevent overriding the parent project's compiler/linker

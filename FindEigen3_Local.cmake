@@ -48,6 +48,7 @@ if(NOT EIGEN3_FOUND)
   #
   include(${_this_dir}/check_version_req.cmake)
   include(${_this_dir}/parse_version.cmake)
+  include(FindPackageHandleStandardArgs)
   include(ExternalProject)
 
   #
@@ -135,14 +136,9 @@ if(NOT EIGEN3_FOUND)
   endif()
 
   #
-  # if found package using standard search then add default targets
+  # if couldn't find package using standard search then use local version
   #
-  if (EIGEN3_FOUND)
-    add_custom_target(eigen3)
-  #
-  # else couldn't find package using standard search then use local version
-  #
-  else()
+  if (NOT EIGEN3_FOUND)
     set(EIGEN3_FOUND false)
     unset(EIGEN3_INCLUDE_DIRS)
     unset(EIGEN3_VERSION)
