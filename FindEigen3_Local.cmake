@@ -28,9 +28,10 @@
 #
 # This module will define the same variables that the FindEigen3 module defines.
 # Specifically the following variables are defined:
-#   EIGEN3_FOUND        - TRUE if found requested version else FALSE
-#   EIGEN3_INCLUDE_DIRS - all directories containing the header files
-#   EIGEN3_VERSION      - the version number found and using
+#   EIGEN3_FOUND           - TRUE if found requested version else FALSE
+#   EIGEN3_INCLUDE_DIRS    - all directories containing the header files
+#   EIGEN3_VERSION         - the version number found and using
+#   EIGEN3_DEPENDENCY_NAME - name of dependency for this project
 
 cmake_minimum_required(VERSION 3.1)
 
@@ -42,6 +43,11 @@ if(NOT EIGEN3_FOUND)
   # determine the location of this file
   #
   set(_this_dir "${CMAKE_CURRENT_LIST_DIR}")
+
+  #
+  # set the name of the dependency
+  #
+  set(EIGEN3_DEPENDENCY_NAME Eigen3)
 
   #
   # include required functions
@@ -102,7 +108,8 @@ if(NOT EIGEN3_FOUND)
   if (_eigen3_local_use EQUAL -1)
     find_package_handle_standard_args(Eigen3 DEFAULT_MSG EIGEN3_FOUND
                                                          EIGEN3_INCLUDE_DIR 
-                                                         EIGEN3_VERSION)
+                                                         EIGEN3_VERSION
+                                                         EIGEN3_DEPENDENCY_NAME)
     return()
   elseif (_eigen3_local_use EQUAL 0)
     set(_eigen3_version "")
@@ -136,9 +143,14 @@ if(NOT EIGEN3_FOUND)
   endif()
 
   #
-  # if couldn't find package using standard search then use local version
+  # if found package using standard search then add dummy target
   #
-  if (NOT EIGEN3_FOUND)
+  if (EIGEN3_FOUND)
+    add_custom_target(${EIGEN3_DEPENDENCY_NAME})
+  #
+  # else couldn't find package using standard search then use local version
+  #
+  else()
     set(EIGEN3_FOUND false)
     unset(EIGEN3_INCLUDE_DIRS)
     unset(EIGEN3_VERSION)
@@ -244,7 +256,7 @@ if(NOT EIGEN3_FOUND)
     # configure the project
     #
     if (EIGEN3_VERSION_OK)
-      ExternalProject_Add(Eigen3
+      ExternalProject_Add(${EIGEN3_DEPENDENCY_NAME}
                           URL             ${EIGEN3_PACKAGE_FILENAME}
                           PREFIX          ${EIGEN3_BINARY_DIR}
                           URL_HASH SHA512=${_eigen3_sha512}
@@ -272,5 +284,6 @@ if(NOT EIGEN3_FOUND)
   #
   find_package_handle_standard_args(Eigen3 DEFAULT_MSG EIGEN3_VERSION
                                                        EIGEN3_FOUND
-                                                       EIGEN3_INCLUDE_DIR)
+                                                       EIGEN3_INCLUDE_DIR
+                                                       EIGEN3_DEPENDENCY_NAME)
 endif()
