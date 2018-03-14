@@ -30,15 +30,16 @@
 #
 # This module will define the same variables that the FindGTest module defines.
 # Specifically the following variables are defined:
-#   GTEST_FOUND          - TRUE if found requested version else FALSE 
-#   GTEST_INCLUDE_DIRS   - all directories containing the header files
-#   GTEST_LIBRARIES      - libraries that do not contain the default 
-#                          main() function.
-#   GTEST_MAIN_LIBRARIES - libraries containing the main() function for link
-#                          phase when relying on googletest to provide it
-#   GTEST_BOTH_LIBRARIES - all libraries needed for link phase of build
-#                          (contains both GTEST_MAIN_LIBRARIES and
-#                          GTEST_LIBRARIES)
+#   GTEST_FOUND           - TRUE if found requested version else FALSE 
+#   GTEST_INCLUDE_DIRS    - all directories containing the header files
+#   GTEST_LIBRARIES       - libraries that do not contain the default 
+#                           main() function.
+#   GTEST_MAIN_LIBRARIES  - libraries containing the main() function for link
+#                           phase when relying on googletest to provide it
+#   GTEST_BOTH_LIBRARIES  - all libraries needed for link phase of build
+#                           (contains both GTEST_MAIN_LIBRARIES and
+#                           GTEST_LIBRARIES)
+#   GTEST_DEPENDENCY_NAME - name of dependency for this project
 #
 # The initial implementation came from the googletest README.md instructions 
 ################################################################################
@@ -53,6 +54,11 @@ if(NOT GTEST_FOUND)
   # determine the location of this file
   #
   set(_this_dir "${CMAKE_CURRENT_LIST_DIR}")
+
+  #
+  # set the name of the dependency
+  #
+  set(GTEST_DEPENDENCY_NAME googletest)
 
   #
   # include required functions
@@ -92,7 +98,8 @@ if(NOT GTEST_FOUND)
                                                               GTEST_INCLUDE_DIRS
                                                               GTEST_LIBRARIES
                                                               GTEST_MAIN_LIBRARIES
-                                                              GTEST_BOTH_LIBRARIES)
+                                                              GTEST_BOTH_LIBRARIES
+                                                              GTEST_DEPENDENCY_NAME)
     return()
   elseif (_gtest_local_use EQUAL 0)
     set(_gtest_version "")
@@ -120,9 +127,14 @@ if(NOT GTEST_FOUND)
   endif()
 
   #
-  # if couldn't find package using standard search then use local version
+  # if found package using standard search then add dummy target
   #
-  if (NOT GTEST_FOUND)
+  if (GTEST_FOUND)
+    add_custom_target(${GTEST_DENPENDENCY_NAME})
+  #
+  # else couldn't find package using standard search then use local version
+  #
+  else()
     set(GTEST_FOUND false)
     unset(GTEST_VERSION)
     unset(GTEST_INCLUDE_DIRS)
@@ -175,7 +187,7 @@ if(NOT GTEST_FOUND)
     # configure the project
     #
     if (GTEST_VERSION_OK)
-      ExternalProject_Add(googletest
+      ExternalProject_Add(${GTEST_DEPENDENCY_NAME}
                           URL             ${GTEST_PACKAGE_FILENAME}
                           PREFIX          ${GTEST_BINARY_DIR}
                           URL_HASH SHA512=${_gtest_sha512}
@@ -190,7 +202,7 @@ if(NOT GTEST_FOUND)
       #
       # set the variables that are needed out of this
       #
-      ExternalProject_Get_Property(googletest INSTALL_DIR)
+      ExternalProject_Get_Property(${GTEST_DEPENDENCY_NAME} INSTALL_DIR)
 
       set(GTEST_FOUND true)
       set(GTEST_VERSION ${_gtest_version})
@@ -220,7 +232,8 @@ if(NOT GTEST_FOUND)
                                                             GTEST_INCLUDE_DIRS
                                                             GTEST_LIBRARIES
                                                             GTEST_MAIN_LIBRARIES
-                                                            GTEST_BOTH_LIBRARIES)
+                                                            GTEST_BOTH_LIBRARIES
+                                                            GTEST_DEPENDENCY_NAME)
 
 endif()
 
