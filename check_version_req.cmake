@@ -15,8 +15,8 @@
 #
 # - Checks a version string for special indicators
 #
-#   This set of packages extends the version system for the find_package 
-#   function to include "none", "system", and "latest" as allowable strings 
+#   This extends the version system for the find_package function
+#   to include "none", "system", and "latest" as allowable strings 
 #   in the version variable. This function parses the passed in version string 
 #   and determines what (if any) special indicator was set for the version 
 #   string that cannot be sent to the CMake functions. The input terms are:
