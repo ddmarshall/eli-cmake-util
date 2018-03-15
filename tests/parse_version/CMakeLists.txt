@@ -18,13 +18,16 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+project(PARSE_VERSION_TEST
+        LANGUAGES CXX)
+
 # add the project specific cmake files to module path
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
                       ${PROJECT_SOURCE_DIR}
-                      ${PROJECT_SOURCE_DIR}/..)
+                      ${PROJECT_SOURCE_DIR}/../..)
 
 # include the function
-include(${PROJECT_SOURCE_DIR}/../parse_version.cmake)
+include(${PROJECT_SOURCE_DIR}/../../parse_version.cmake)
 
 #
 # test passing 4 number version
