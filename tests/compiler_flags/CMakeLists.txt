@@ -476,6 +476,101 @@ endif()
 #
 # testing Fortran compiler flags
 #
+set(FORTRAN_WARNING_FLAG "")
+enable_fortran_compiler_implicit_none(FORTRAN_WARNING_FLAG)
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran implicit none compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran implicit none")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_INTEGER_SIZE 4)
+enable_fortran_compiler_integer_size(FORTRAN_WARNING_FLAG ${FORTRAN_INTEGER_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran integer size of ${FORTRAN_INTEGER_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran integer size "
+                 "of ${FORTRAN_INTEGER_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_INTEGER_SIZE 8)
+enable_fortran_compiler_integer_size(FORTRAN_WARNING_FLAG ${FORTRAN_INTEGER_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran integer size of ${FORTRAN_INTEGER_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran integer size "
+                 "of ${FORTRAN_INTEGER_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_REAL_SIZE 4)
+enable_fortran_compiler_real_size(FORTRAN_WARNING_FLAG ${FORTRAN_REAL_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran real size of ${FORTRAN_REAL_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran real size "
+                 "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_REAL_SIZE 8)
+enable_fortran_compiler_real_size(FORTRAN_WARNING_FLAG ${FORTRAN_REAL_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran real size of ${FORTRAN_REAL_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran real size "
+                 "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_REAL_SIZE 10)
+enable_fortran_compiler_real_size(FORTRAN_WARNING_FLAG ${FORTRAN_REAL_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran real size of ${FORTRAN_REAL_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran real size "
+                 "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_REAL_SIZE 16)
+enable_fortran_compiler_real_size(FORTRAN_WARNING_FLAG ${FORTRAN_REAL_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran real size of ${FORTRAN_REAL_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran real size "
+                 "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_DOUBLE_SIZE 8)
+enable_fortran_compiler_double_size(FORTRAN_WARNING_FLAG ${FORTRAN_DOUBLE_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran double size of ${FORTRAN_DOUBLE_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran double size "
+                 "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
+
+set(FORTRAN_WARNING_FLAG "")
+set(FORTRAN_DOUBLE_SIZE 16)
+enable_fortran_compiler_double_size(FORTRAN_WARNING_FLAG ${FORTRAN_DOUBLE_SIZE})
+if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran double size of ${FORTRAN_DOUBLE_SIZE}"
+                " compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran double size "
+                 "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
 
 #
 # test setting individual Fortran warnings

@@ -152,21 +152,90 @@ include(${_this_dir}/internal/enable_fortran_language_version.cmake)
 include(${_this_dir}/internal/enable_fortran_pedantic.cmake)
 include(${_this_dir}/internal/enable_fortran_warning_level.cmake)
 
-#check_fortran_compiler_flag(-fimplicit-none COMPILER_SUPPORT_FORTRAN_IMPLICIT_NONE)# no implicit typing allowed
+#
+# Allow no implicit typing
+#
+function(ENABLE_FORTRAN_COMPILER_IMPLICIT_NONE flag_name_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gfortran
+  set(flag_ "-fimplicit-none")
+  check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_IMPLICIT_NONE)
+  if(COMPILER_SUPPORT_FORTRAN_IMPLICIT_NONE)
+    set(${flag_name_} ${flag_} PARENT_SCOPE)
+  endif()
+endfunction()
 
+#
+# Set the integer size to passed in value
+#
+function(ENABLE_FORTRAN_COMPILER_INTEGER_SIZE flag_name_ integer_size_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gfortran
+  if (integer_size_ EQUAL 4)
+    set(${flag_name_} "" PARENT_SCOPE)
+  elseif(integer_size_ EQUAL 8)
+    set(flag_ "-fdefault-integer-8")
+    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_INTEGER_SIZE_${integer_size_})
+    if(COMPILER_SUPPORT_FORTRAN_INTEGER_SIZE_${integer_size_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  else()
+    message(FATAL_ERROR "Invalid integer size of ${integer_size_}")
+  endif()
+endfunction()
 
-##
-## Additional compiler settings
-##
-#set(COMPILER_FORTRAN_WARNINGS_AS_ERROR true) # true/false
-#check_fortran_compiler_flag(-Werror COMPILER_SUPPORT_FORTRAN_WERROR) # all warnings are errors
-#set(COMPILER_FORTRAN_INTEGER_SIZE "8")# DEFAULT, 8
-#check_fortran_compiler_flag(-fdefault-integer-8 COMPILER_SUPPORT_FORTRAN_DEFAULT_INTEGER_8)# sets default integer to 8 byte
-#set(COMPILER_FORTRAN_REAL_SIZE "8")# DEFAULT, 8, 10, 16
-#check_fortran_compiler_flag(-fdefault-real-8 COMPILER_SUPPORT_FORTRAN_DEFAULT_REAL_8)# sets default real to 8 byte
-#check_fortran_compiler_flag(-fdefault-real-10 COMPILER_SUPPORT_FORTRAN_DEFAULT_REAL_10)# sets default real to 10 byte
-#check_fortran_compiler_flag(-fdefault-real-16 COMPILER_SUPPORT_FORTRAN_DEFAULT_REAL_16)# sets default real to 16 byte
-#set(COMPILER_FORTRAN_DOUBLE_SIZE "8")# DEFAULT, 8
-#check_fortran_compiler_flag(-fdefault-double-8 COMPILER_SUPPORT_FORTRAN_DEFAULT_DOUBLE_8)# sets default double to 16 byte
+#
+# Set the real size to passed in value
+#
+function(ENABLE_FORTRAN_COMPILER_REAL_SIZE flag_name_ real_size_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gfortran
+  if (real_size_ EQUAL 4)
+    set(${flag_name_} "" PARENT_SCOPE)
+  elseif(real_size_ EQUAL 8)
+    set(flag_ "-fdefault-real-8")
+    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+    if(COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  elseif(real_size_ EQUAL 10)
+    set(flag_ "-fdefault-real-10")
+    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+    if(COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  elseif(real_size_ EQUAL 16)
+    set(flag_ "-fdefault-real-16")
+    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+    if(COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  else()
+    message(FATAL_ERROR "Invalid real size of ${real_size_}")
+  endif()
+endfunction()
+
+#
+# Set the double size to passed in value
+#
+function(ENABLE_FORTRAN_COMPILER_DOUBLE_SIZE flag_name_ double_size_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gfortran
+  if (double_size_ EQUAL 8)
+    set(${flag_name_} "" PARENT_SCOPE)
+  elseif(double_size_ EQUAL 16)
+    set(flag_ "-fdefault-double-16")
+    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_DOUBLE_SIZE_${double_size_})
+    if(COMPILER_SUPPORT_FORTRAN_DOUBLE_SIZE_${double_size_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  else()
+    message(FATAL_ERROR "Invalid double size of ${double_size_}")
+  endif()
+endfunction()
 
 
