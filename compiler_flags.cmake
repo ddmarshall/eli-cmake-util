@@ -212,3 +212,9 @@ function(ENABLE_FORTRAN_COMPILER_DOUBLE_SIZE flag_name_ double_size_)
 endfunction()
 
 
+MESSAGE(WARNING "The -fmessage-length=0 flag is only needed for generators that parse the compiler output such as CodeBlocks and Eclipse")
+check_cxx_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_CPP_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
+check_c_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_C_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
+check_fortran_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_FORTRAN_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
+
+
