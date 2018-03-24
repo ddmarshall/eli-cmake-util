@@ -95,53 +95,21 @@ endfunction()
 ################################################################################
 include(${_this_dir}/internal/enable_c_language_version.cmake)
 include(${_this_dir}/internal/enable_c_pedantic.cmake)
+include(${_this_dir}/internal/enable_c_warning_level.cmake)
 
-
-
-
-MESSAGE(WARNING "The -fmessage-length=0 flag is only needed for generators that parse the compiler output such as CodeBlocks and Eclipse")
-check_cxx_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_CPP_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
-
-
-
-
-
-
-
-##
-## set the amount of warnings wanted from compiler
-##
-#set(COMPILER_C_WARNING_STATE 1) # 0 -> nothing; 1 -> Wall; 2 -> Wextra; 3 -> All good warnings
-## Level 1
-#check_c_compiler_flag(-Wall COMPILER_SUPPORT_C_WALL)# enable large number of warnings
-## Level 2
-#check_c_compiler_flag(-Wextra COMPILER_SUPPORT_C_WEXTRA)# enable even more warnings
-## Level 3
-
-#check_c_compiler_flag(-Wno-long-long COMPILER_SUPPORT_C_NO_LONG_LONG)# Disable warning about using long long type
-#check_c_compiler_flag(-Wconversion COMPILER_SUPPORT_C_CONVERSION)# Warn for implicit conversions that may alter a value
-#check_c_compiler_flag(-Wundef COMPILER_SUPPORT_C_UNDEF)# Warn if an undefined identifier is evaluated in an #if directive
-#check_c_compiler_flag(-Wcast-align COMPILER_SUPPORT_C_CAST_ALIGN) # Warn whenever a pointer is cast such that the required alignment of the target is increased.
-#check_c_compiler_flag(-Wformat=2 COMPILER_SUPPORT_C_FORMAT2) # check format strings in I/O
-#check_c_compiler_flag(-Wlogical-op COMPILER_SUPPORT_C_LOGICAL_OP) # gcc: Warn about suspicious uses of logical operators in expressions
-#check_c_compiler_flag(-Wlogical-op-parentheses COMPILER_SUPPORT_C_LOGICAL_OP_PARENTHESIS) # clang: Warn about suspicious uses of logical operators in expressions
-#check_c_compiler_flag(-Wdouble-promotion COMPILER_SUPPORT_C_DOUBLE_PROMOTION) # Warn when a value of type float is implicitly promoted to double
-#check_c_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_C_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
-#check_c_compiler_flag(-Wshadow COMPILER_SUPPORT_C_SHADOW) # Warn if variables are shadowed
-#check_c_compiler_flag(-Wwrite-strings COMPILER_SUPPORT_C_WRITE_STRINGS) # warn if trying to write to string constant address space
-#check_c_compiler_flag(-fstrict-aliasing COMPILER_SUPPORT_C_STRICT_ALIASING) # Allow compiler to assume the strictest aliasing rules applicable
-#set(CMAKE_REQUIRED_DEFINITIONS "-fstrict-aliasing -Wstrict-aliasing")
-#check_c_source_compiles("int main(int argc, char *argv[]) {return 0;}" COMPILER_SUPPORT_C_STRICT_ALIASING_WARNING)# warn about code that might violate strict aliasing rules
-
-
-#set(COMPILER_C_WARNINGS_AS_ERROR true) # true/false
-##
-## Additional compiler settings
-##
-#check_c_compiler_flag(-Werror COMPILER_SUPPORT_C_WERROR) # all warnings are errors
-
-
-
+#
+# Allow compiler to assume the strictest aliasing rules apply
+#
+function(ENABLE_C_COMPILER_STRICT_ALIASING flag_name_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gcc, clang
+  set(flag_ "-fstrict-aliasing")
+  check_c_compiler_flag(${flag_} COMPILER_SUPPORT_C_STRICT_ALIASING)
+  if(COMPILER_SUPPORT_C_STRICT_ALIASING)
+    set(${flag_name_} ${flag_} PARENT_SCOPE)
+  endif()
+endfunction()
 
 ################################################################################
 #
@@ -177,7 +145,8 @@ function(ENABLE_FORTRAN_COMPILER_INTEGER_SIZE flag_name_ integer_size_)
     set(${flag_name_} "" PARENT_SCOPE)
   elseif(integer_size_ EQUAL 8)
     set(flag_ "-fdefault-integer-8")
-    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_INTEGER_SIZE_${integer_size_})
+    check_fortran_compiler_flag(${flag_} 
+                         COMPILER_SUPPORT_FORTRAN_INTEGER_SIZE_${integer_size_})
     if(COMPILER_SUPPORT_FORTRAN_INTEGER_SIZE_${integer_size_})
       set(${flag_name_} ${flag_} PARENT_SCOPE)
     endif()
@@ -197,19 +166,22 @@ function(ENABLE_FORTRAN_COMPILER_REAL_SIZE flag_name_ real_size_)
     set(${flag_name_} "" PARENT_SCOPE)
   elseif(real_size_ EQUAL 8)
     set(flag_ "-fdefault-real-8")
-    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+    check_fortran_compiler_flag(${flag_} 
+                               COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
     if(COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
       set(${flag_name_} ${flag_} PARENT_SCOPE)
     endif()
   elseif(real_size_ EQUAL 10)
     set(flag_ "-fdefault-real-10")
-    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+    check_fortran_compiler_flag(${flag_} 
+                               COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
     if(COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
       set(${flag_name_} ${flag_} PARENT_SCOPE)
     endif()
   elseif(real_size_ EQUAL 16)
     set(flag_ "-fdefault-real-16")
-    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
+    check_fortran_compiler_flag(${flag_} 
+                               COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
     if(COMPILER_SUPPORT_FORTRAN_REAL_SIZE_${real_size_})
       set(${flag_name_} ${flag_} PARENT_SCOPE)
     endif()
@@ -229,7 +201,8 @@ function(ENABLE_FORTRAN_COMPILER_DOUBLE_SIZE flag_name_ double_size_)
     set(${flag_name_} "" PARENT_SCOPE)
   elseif(double_size_ EQUAL 16)
     set(flag_ "-fdefault-double-16")
-    check_fortran_compiler_flag(${flag_} COMPILER_SUPPORT_FORTRAN_DOUBLE_SIZE_${double_size_})
+    check_fortran_compiler_flag(${flag_} 
+                           COMPILER_SUPPORT_FORTRAN_DOUBLE_SIZE_${double_size_})
     if(COMPILER_SUPPORT_FORTRAN_DOUBLE_SIZE_${double_size_})
       set(${flag_name_} ${flag_} PARENT_SCOPE)
     endif()

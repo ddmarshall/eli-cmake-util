@@ -402,16 +402,191 @@ endif()
 #
 # testing C compiler flags
 #
+set(C_STRICT_ALIASING "")
+enable_c_compiler_strict_aliasing(C_STRICT_ALIASING)
+if (C_STRICT_ALIASING STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C strict aliasing compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C strict aliasing")
+endif()
 
 #
 # test setting individual C warnings
 #
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_conversion(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C type conversion warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C type conversion warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_undef_usage(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C undef usage warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C undef usage warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_cast_align(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C cast align warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C cast align warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_format_io_string_extra(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C extra I/O format string check compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C extra I/O format string check")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_format_io_string_overflow_extra(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C extra I/O string overflow compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C extra I/O string overflow")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_logical_operations_parenthesis(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C logical operations parenthesis usage compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C logical operations parenthesis usage")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_double_promotion(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C double promotion warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C double promotion warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_shadow(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C variable shadowing warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C variable shadowing warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_long_long(C_WARNING_FLAG true)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C long long usage warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C long long usage warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_long_long(C_WARNING_FLAG false)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C no long long usage warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C no long long usage warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_format_io_string(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C format I/O string warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C format I/O string warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_format_io_string_overflow(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C I/O string overflow warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C I/O string overflow warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_narrowing(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C type narrowing warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C type narrowing warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_strict_aliasing(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C strict aliasing warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C strict aliasing warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_write_strings(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C write strings warning compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C write strings warning")
+endif()
+
+set(C_WARNING_FLAG "")
+enable_c_compiler_warning_as_error(C_WARNING_FLAG)
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C warnings as errors compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C warnings as errors")
+endif()
 
 #
 # test setting the C warning levels
 #
+set(C_WARNING_FLAG "")
+set(C_WARNING_LEVEL 0)
+enable_c_warning_level(C_WARNING_FLAG ${C_WARNING_LEVEL})
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C compiler warning level ${C_WARNING_LEVEL}"
+                " but is not supported")
+else()
+  message(STATUS "Received compiler flag for C warning "
+                 "level ${C_WARNING_LEVEL}")
+endif()
 
+set(C_WARNING_FLAG "")
+set(C_WARNING_LEVEL 1)
+enable_c_warning_level(C_WARNING_FLAG ${C_WARNING_LEVEL})
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C compiler warning level ${C_WARNING_LEVEL}"
+                " but is not supported")
+else()
+  message(STATUS "Received compiler flag for C warning "
+                 "level ${C_WARNING_LEVEL}")
+endif()
 
+set(C_WARNING_FLAG "")
+set(C_WARNING_LEVEL 2)
+enable_c_warning_level(C_WARNING_FLAG ${C_WARNING_LEVEL})
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C compiler warning level ${C_WARNING_LEVEL}"
+                " but is not supported")
+else()
+  message(STATUS "Received compiler flag for C warning "
+                 "level ${C_WARNING_LEVEL}")
+endif()
+
+set(C_WARNING_FLAG "")
+set(C_WARNING_LEVEL 3)
+enable_c_warning_level(C_WARNING_FLAG ${C_WARNING_LEVEL})
+if (C_WARNING_FLAG STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C compiler warning level ${C_WARNING_LEVEL}"
+                " but is not supported")
+else()
+  message(STATUS "Received compiler flag for C warning "
+                 "level ${C_WARNING_LEVEL}")
+endif()
 
 ################################################################################
 #
