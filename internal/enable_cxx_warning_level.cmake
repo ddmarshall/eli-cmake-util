@@ -25,7 +25,8 @@
 #                       * 0 -> no special warnings provided
 #                       * 1 -> roughly equivalent to -Wall
 #                       * 2 -> roughly equivalent to -Wall -Wextra
-#                       * 3 -> in addition to the 2-level adds more useful warnings
+#                       * 3 -> in addition to the 2-level adds more useful 
+#                              warnings
 #
 ################################################################################
 
@@ -66,7 +67,8 @@ function(ENABLE_CXX_COMPILER_WARNING_UNDEF_USAGE flag_name_)
 endfunction()
 
 #
-# Warn whenever a pointer is cast such that the required alignment of the target is increased.
+# Warn whenever a pointer is cast such that the required alignment of the
+# target is increased.
 #
 function(ENABLE_CXX_COMPILER_WARNING_CAST_ALIGN flag_name_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
@@ -94,14 +96,16 @@ function(ENABLE_CXX_COMPILER_WARNING_FORMAT_IO_STRING_EXTRA flag_name_)
 endfunction()
 
 #
-# Warn on standard as well as additional warnings of possible destination buffer overflow in I/O
+# Warn on standard as well as additional warnings of possible destination
+# buffer overflow in I/O
 #
 function(ENABLE_CXX_COMPILER_WARNING_FORMAT_IO_STRING_OVERFLOW_EXTRA flag_name_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
   
   # g++, clang++
   set(flag_ "-Wformat-overflow=2")
-  check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_FORMAT_IO_STRING_OVERFLOW_EXTRA)
+  check_cxx_compiler_flag(${flag_} 
+                          COMPILER_SUPPORT_CXX_FORMAT_IO_STRING_OVERFLOW_EXTRA)
   if(COMPILER_SUPPORT_CXX_FORMAT_IO_STRING_OVERFLOW_EXTRA)
     set(${flag_name_} ${flag_} PARENT_SCOPE)
   endif()
@@ -121,7 +125,8 @@ function(ENABLE_CXX_COMPILER_WARNING_LOGICAL_OPERATIONS_PARENTHESIS flag_name_)
   else()
     # clang++
     set(flag_ "-Wlogical-op-parentheses")
-    check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_LOGICAL_OPERATIONS_PARENTHESIS)
+    check_cxx_compiler_flag(${flag_} 
+                            COMPILER_SUPPORT_CXX_LOGICAL_OPERATIONS_PARENTHESIS)
     if(COMPILER_SUPPORT_CXX_LOGICAL_OPERATIONS_PARENTHESIS)
       set(${flag_name_} ${flag_} PARENT_SCOPE)
     endif()
@@ -185,7 +190,8 @@ function(ENABLE_CXX_COMPILER_WARNING_HIDDEN_VIRTUAL_METHOD flag_name_)
 endfunction()
 
 #
-# Enable/disable warning about using long long type. Typically enabled by -pedantic
+# Enable/disable warning about using long long type. Typically enabled
+# by -pedantic
 #
 function(ENABLE_CXX_COMPILER_WARNING_LONG_LONG flag_name_ yesnoflag_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
@@ -193,11 +199,13 @@ function(ENABLE_CXX_COMPILER_WARNING_LONG_LONG flag_name_ yesnoflag_)
   # g++, clang++
   if (yesnoflag_)
     set(flag_ "-Wlong-long")
+    set(str "")
   else()
     set(flag_ "-Wno-long-long")
+    set(str "NO_")
   endif()
-  check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_LONG_LONG)
-  if(COMPILER_SUPPORT_CXX_LONG_LONG)
+  check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_${str}LONG_LONG)
+  if(COMPILER_SUPPORT_CXX_${str}LONG_LONG)
     set(${flag_name_} ${flag_} PARENT_SCOPE)
   endif()
 endfunction()
@@ -217,7 +225,8 @@ function(ENABLE_CXX_COMPILER_WARNING_FORMAT_IO_STRING flag_name_)
 endfunction()
 
 #
-# Warn of possible destination buffer overflow in I/O. Typically enabled by -Wformat 
+# Warn of possible destination buffer overflow in I/O. Typically enabled
+# by -Wformat 
 #
 function(ENABLE_CXX_COMPILER_WARNING_FORMAT_IO_STRING_OVERFLOW flag_name_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
@@ -253,7 +262,8 @@ function(ENABLE_CXX_COMPILER_WARNING_STRICT_ALIASING flag_name_)
   # g++, clang++
   set(flag_ "-fstrict-aliasing -Wstrict-aliasing")
   set(CMAKE_REQUIRED_DEFINITIONS ${flag_})
-  check_cxx_source_compiles("int main(int argc, char *argv[]) {return 0;}" COMPILER_SUPPORT_CXX_STRICT_ALIASING)
+  check_cxx_source_compiles("int main(int argc, char *argv[]) {return 0;}" 
+                            COMPILER_SUPPORT_CXX_STRICT_ALIASING)
   if(COMPILER_SUPPORT_CXX_STRICT_ALIASING)
     set(${flag_name_} ${flag_} PARENT_SCOPE)
   endif()
@@ -261,7 +271,8 @@ endfunction()
 
 
 #
-# Warn about violations of the following style guidelines from Scott Meyers’ Effective C++ series of books
+# Warn about violations of the following style guidelines from Scott Meyers’
+# Effective C++ series of books
 #
 function(ENABLE_CXX_COMPILER_WARNING_EFFECTIVE_CXX flag_name_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
@@ -339,7 +350,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_CONVERSION(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ type conversion warning")
+          message(WARNING "Could not determine flag for C++ type conversion "
+                          "warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -347,7 +359,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_UNDEF_USAGE(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ undefined macro usage warning")
+          message(WARNING "Could not determine flag for C++ undefined macro "
+                          "usage warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -355,7 +368,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_CAST_ALIGN(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ cast alignment warning")
+          message(WARNING "Could not determine flag for C++ cast alignment "
+                          "warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -363,7 +377,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_FORMAT_IO_STRING_EXTRA(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for extra C++ I/O format string warning")
+          message(WARNING "Could not determine flag for extra C++ I/O format "
+                          "string warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -371,7 +386,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_FORMAT_IO_STRING_OVERFLOW(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ I/O format string overflow warning")
+          message(WARNING "Could not determine flag for C++ I/O format "
+                          "string overflow warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -379,7 +395,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_LOGICAL_OPERATIONS_PARENTHESIS(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ logical operations parenthesis warning")
+          message(WARNING "Could not determine flag for C++ logical "
+                          "operations parenthesis warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -387,7 +404,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_DOUBLE_PROMOTION(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ I/O implicit float promotion to double warning")
+          message(WARNING "Could not determine flag for C++ I/O implicit "
+                          "float promotion to double warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -395,7 +413,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_SHADOW(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ variable shadowing warning")
+          message(WARNING "Could not determine flag for C++ variable "
+                          "shadowing warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -403,7 +422,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_NON_VIRTUAL_DESTRUCTOR(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ I/O non-virtual destructor warning")
+          message(WARNING "Could not determine flag for C++ I/O non-virtual "
+                          "destructor warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()
@@ -411,7 +431,8 @@ function(ENABLE_CXX_WARNING_LEVEL flag_name_ warning_level_)
         set(FLAG_STRING "")
         ENABLE_CXX_COMPILER_WARNING_HIDDEN_VIRTUAL_METHOD(FLAG_STRING)
         if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C++ hidden virtual method warning")
+          message(WARNING "Could not determine flag for C++ hidden virtual "
+                          "method warning")
         else()
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         endif()

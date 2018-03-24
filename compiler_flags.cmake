@@ -41,7 +41,7 @@ include(${_this_dir}/internal/enable_cxx_warning_level.cmake)
 function(ENABLE_CXX_COMPILER_STRICT_ALIASING flag_name_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
   
-  # gcc, clang
+  # g++, clang++
   set(flag_ "-fstrict-aliasing")
   check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_STRICT_ALIASING)
   if(COMPILER_SUPPORT_CXX_STRICT_ALIASING)
@@ -56,7 +56,7 @@ endfunction()
 function(ENABLE_CXX_COMPILER_CONSTEXPR_DEPTH flag_name_ depth_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
   
-  # gcc, clang
+  # g++, clang++
   if ((depth_ MATCHES "^[1-9][0-9]+$") AND (depth_ GREATER 2))
     set(flag_ "-fconstexpr-depth=${depth_}")
     check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_CONSTEXPR_DEPTH)
@@ -75,7 +75,7 @@ endfunction()
 function(ENABLE_CXX_COMPILER_CONSTEXPR_LOOP_LIMIT flag_name_ depth_)
   set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
   
-  # gcc, clang
+  # g++, clang++
   if ((depth_ MATCHES "^[1-9][0-9]+$") AND (depth_ GREATER 2))
     set(flag_ "-fconstexpr-depth=${depth_}")
     check_cxx_compiler_flag(${flag_} COMPILER_SUPPORT_CXX_CONSTEXPR_LOOP_LIMIT)
