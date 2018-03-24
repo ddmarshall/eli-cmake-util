@@ -25,7 +25,8 @@
 #                       * 0 -> no special warnings provided
 #                       * 1 -> roughly equivalent to -Wall
 #                       * 2 -> roughly equivalent to -Wall -Wextra
-#                       * 3 -> in addition to the 2-level adds more useful warnings
+#                       * 3 -> in addition to the 2-level adds more useful 
+#                              warnings
 #
 ################################################################################
 
@@ -77,11 +78,13 @@ function(ENABLE_FORTRAN_WARNING_LEVEL flag_name_ warning_level_)
       set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
       if (warning_level_ GREATER 1)
         set(FLAG_STRING "-Wextra") # gfortran
-        check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_FORTRAN_WEXTRA)
+        check_fortran_compiler_flag(${FLAG_STRING} 
+                                    COMPILER_SUPPORT_FORTRAN_WEXTRA)
         if (COMPILER_SUPPORT_FORTRAN_WEXTRA)
           set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
         else()
-          message(WARNING "Could not determine flags for Fortran warning level 2")
+          message(WARNING "Could not determine flags for Fortran warning "
+                          "level 2")
         endif()
       endif()
       if (warning_level_ GREATER 2)

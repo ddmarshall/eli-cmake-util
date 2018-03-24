@@ -44,29 +44,33 @@ function(ENABLE_FORTRAN_LANGUAGE_VERSION flag_name_ version_number_)
 
   # flag for f95
   if(version_number_ EQUAL 1995)
-    set(FLAG_STRING "-std=f95") # gcc
-    check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_F95_LANGUAGE_SETTING)
+    set(FLAG_STRING "-std=f95") # gfortran
+    check_fortran_compiler_flag(${FLAG_STRING} 
+                                COMPILER_SUPPORT_F95_LANGUAGE_SETTING)
     if (COMPILER_SUPPORT_F95_LANGUAGE_SETTING)
       set(${flag_name_} ${FLAG_STRING} PARENT_SCOPE)
     endif()
   # flag for f2003
   elseif(version_number_ EQUAL 2003)
-    set(FLAG_STRING "-std=f2003") # gcc
-    check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_F2003_LANGUAGE_SETTING)
+    set(FLAG_STRING "-std=f2003") # gfortran
+    check_fortran_compiler_flag(${FLAG_STRING} 
+                                COMPILER_SUPPORT_F2003_LANGUAGE_SETTING)
     if (COMPILER_SUPPORT_F2003_LANGUAGE_SETTING)
       set(${flag_name_} ${FLAG_STRING} PARENT_SCOPE)
     endif()
   # flag for f2008
   elseif(version_number_ EQUAL 2008)
-    set(FLAG_STRING "-std=f2008") # gcc
-    check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_F2008_LANGUAGE_SETTING)
+    set(FLAG_STRING "-std=f2008") # gfortran
+    check_fortran_compiler_flag(${FLAG_STRING} 
+                                COMPILER_SUPPORT_F2008_LANGUAGE_SETTING)
     if (COMPILER_SUPPORT_F2008_LANGUAGE_SETTING)
       set(${flag_name_} ${FLAG_STRING} PARENT_SCOPE)
     endif()
   # flag for f2018
   elseif(version_number_ EQUAL 2018)
-    set(FLAG_STRING "-std=f2018") # gcc
-    check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_F2018_LANGUAGE_SETTING)
+    set(FLAG_STRING "-std=f2018") # gfortran
+    check_fortran_compiler_flag(${FLAG_STRING} 
+                                COMPILER_SUPPORT_F2018_LANGUAGE_SETTING)
     if (COMPILER_SUPPORT_F2018_LANGUAGE_SETTING)
       set(${flag_name_} ${FLAG_STRING} PARENT_SCOPE)
     endif()
