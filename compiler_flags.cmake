@@ -87,6 +87,24 @@ function(ENABLE_CXX_COMPILER_CONSTEXPR_LOOP_LIMIT flag_name_ depth_)
   endif()
 endfunction()
 
+#
+# Set the message length for compiler
+#
+function(ENABLE_CXX_COMPILER_MESSAGE_LENGTH flag_name_ length_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # g++, clang++
+  if (length_ MATCHES "^[0-9]+$")
+    set(flag_ "-fmessage-length=${length_}")
+    check_cxx_compiler_flag(${flag_} 
+                            COMPILER_SUPPORT_CXX_MESSAGE_LENGTH${length_})
+    if(COMPILER_SUPPORT_CXX_MESSAGE_LENGTH${length_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  else()
+    message(FATAL_ERROR "Invalid message length of ${length_}")
+  endif()
+endfunction()
 
 ################################################################################
 #
@@ -108,6 +126,25 @@ function(ENABLE_C_COMPILER_STRICT_ALIASING flag_name_)
   check_c_compiler_flag(${flag_} COMPILER_SUPPORT_C_STRICT_ALIASING)
   if(COMPILER_SUPPORT_C_STRICT_ALIASING)
     set(${flag_name_} ${flag_} PARENT_SCOPE)
+  endif()
+endfunction()
+
+#
+# Set the message length for compiler
+#
+function(ENABLE_C_COMPILER_MESSAGE_LENGTH flag_name_ length_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gcc, clang
+  if (length_ MATCHES "^[0-9]+$")
+    set(flag_ "-fmessage-length=${length_}")
+    check_c_compiler_flag(${flag_} 
+                          COMPILER_SUPPORT_C_MESSAGE_LENGTH${length_})
+    if(COMPILER_SUPPORT_C_MESSAGE_LENGTH${length_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  else()
+    message(FATAL_ERROR "Invalid message length of ${length_}")
   endif()
 endfunction()
 
@@ -211,10 +248,22 @@ function(ENABLE_FORTRAN_COMPILER_DOUBLE_SIZE flag_name_ double_size_)
   endif()
 endfunction()
 
-
-MESSAGE(WARNING "The -fmessage-length=0 flag is only needed for generators that parse the compiler output such as CodeBlocks and Eclipse")
-check_cxx_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_CPP_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
-check_c_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_C_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
-check_fortran_compiler_flag(-fmessage-length=0 COMPILER_SUPPORT_FORTRAN_MESSAGE_LENGTH0)# No wrapping of lines (useful for eclipse and codeblocks)
-
+#
+# Set the message length for compiler
+#
+function(ENABLE_FORTRAN_COMPILER_MESSAGE_LENGTH flag_name_ length_)
+  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  
+  # gfortran
+  if (length_ MATCHES "^[0-9]+$")
+    set(flag_ "-fmessage-length=${length_}")
+    check_fortran_compiler_flag(${flag_} 
+                              COMPILER_SUPPORT_FORTRAN_MESSAGE_LENGTH${length_})
+    if(COMPILER_SUPPORT_FORTRAN_MESSAGE_LENGTH${length_})
+      set(${flag_name_} ${flag_} PARENT_SCOPE)
+    endif()
+  else()
+    message(FATAL_ERROR "Invalid message length of ${length_}")
+  endif()
+endfunction()
 

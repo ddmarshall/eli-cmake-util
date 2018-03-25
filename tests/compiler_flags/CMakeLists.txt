@@ -137,6 +137,14 @@ else()
   message(STATUS "Received compiler flag for C++ constexpr loop limit")
 endif()
 
+set(CXX_MESSAGE_LENGTH "")
+enable_cxx_compiler_message_length(CXX_MESSAGE_LENGTH 0)
+if (CXX_MESSAGE_LENGTH STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C++ message length compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C++ message length")
+endif()
+
 #
 # test setting individual C++ warnings
 #
@@ -408,6 +416,14 @@ if (C_STRICT_ALIASING STREQUAL "NOT_FOUND")
   message(ERROR " Expected C strict aliasing compiler support but is not supported")
 else()
   message(STATUS "Received compiler flag for C strict aliasing")
+endif()
+
+set(C_MESSAGE_LENGTH "")
+enable_c_compiler_message_length(C_MESSAGE_LENGTH 200)
+if (C_MESSAGE_LENGTH STREQUAL "NOT_FOUND")
+  message(ERROR " Expected C message length compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for C message length")
 endif()
 
 #
@@ -745,6 +761,14 @@ if (FORTRAN_WARNING_FLAG STREQUAL "NOT_FOUND")
 else()
   message(STATUS "Received compiler flag for Fortran double size "
                  "of ${FORTRAN_DOUBLE_SIZE}")
+endif()
+
+set(FORTRAN_MESSAGE_LENGTH "")
+enable_fortran_compiler_message_length(FORTRAN_MESSAGE_LENGTH 200)
+if (FORTRAN_MESSAGE_LENGTH STREQUAL "NOT_FOUND")
+  message(ERROR " Expected Fortran message length compiler support but is not supported")
+else()
+  message(STATUS "Received compiler flag for Fortran message length")
 endif()
 
 #
