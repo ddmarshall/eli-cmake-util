@@ -12,10 +12,16 @@
 # Contributors:
 #    David D. Marshall - initial code and implementation
 ################################################################################
+#
+# - Prints out name and value of variable name passed in
+#
+#   This function simplifies the displaying of variables, which is useful
+#   during debugging.
+#   * var_ - the name of the variable to be displayed
+#
+################################################################################
 
-cmake_minimum_required(VERSION 3.1)
-
-add_subdirectory("check_version_req")
-add_subdirectory("parse_version")
-add_subdirectory("compiler_flags")
+function(DEBUG_MESSAGE var_)
+  message("DEBUG ${var_}=${${var_}}")
+endfunction()
 

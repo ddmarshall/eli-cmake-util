@@ -18,6 +18,9 @@
 
 cmake_minimum_required(VERSION 3.0)
 
+project(EIGEN3_V320_TEST
+        LANGUAGES CXX)
+
 # add the project specific cmake files to module path
 set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH}
                       ${PROJECT_SOURCE_DIR}
