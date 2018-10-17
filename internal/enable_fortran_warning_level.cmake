@@ -20,7 +20,7 @@
 #   name to store the compiler flag and the desired warning level.
 #   * flag_name_ - the name of the variable that the required compiler flag 
 #                  needs to be stored if successful. If unsuccessful then the 
-#                  variable will contain "NOT_FOUND".
+#                  variable will contain "NOTFOUND".
 #   * warning_level_ - the amount of warnings desired. The available values are:
 #                       * 0 -> no special warnings provided
 #                       * 1 -> roughly equivalent to -Wall
@@ -42,7 +42,7 @@ include(CheckFortranCompilerFlag)
 # Turn any compiler warning into error
 #
 function(ENABLE_FORTRAN_COMPILER_WARNING_AS_ERROR flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gfortran
   set(flag_ "-Werror")
@@ -64,7 +64,7 @@ endfunction()
 function(ENABLE_FORTRAN_WARNING_LEVEL flag_name_ warning_level_)
 
   # default setting of result
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
 
   # flags for level 0
   if(warning_level_ EQUAL 0)
@@ -75,13 +75,13 @@ function(ENABLE_FORTRAN_WARNING_LEVEL flag_name_ warning_level_)
     set(FLAG_STRING "-Wall") # gfortran
     check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_FORTRAN_WALL)
     if (COMPILER_SUPPORT_FORTRAN_WALL)
-      set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+      list(APPEND FINAL_STRING ${FLAG_STRING})
       if (warning_level_ GREATER 1)
         set(FLAG_STRING "-Wextra") # gfortran
         check_fortran_compiler_flag(${FLAG_STRING} 
                                     COMPILER_SUPPORT_FORTRAN_WEXTRA)
         if (COMPILER_SUPPORT_FORTRAN_WEXTRA)
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         else()
           message(WARNING "Could not determine flags for Fortran warning "
                           "level 2")
@@ -92,7 +92,7 @@ function(ENABLE_FORTRAN_WARNING_LEVEL flag_name_ warning_level_)
       endif()
       set(${flag_name_} ${FINAL_STRING} PARENT_SCOPE)
       if (warning_level_ GREATER 3)
-        set(${FLAG_NAME_} "NOT_FOUND" PARENT_SCOPE)
+        set(${FLAG_NAME_} "NOTFOUND" PARENT_SCOPE)
         message(WARNING "Unsupported/Invalid Fortran warning level "
                         "->${warning_level_}<- provided")
       endif()

@@ -20,7 +20,7 @@
 #   to store the compiler flag and the desired warning level.
 #   * flag_name_ - the name of the variable that the required compiler flag 
 #                  needs to be stored if successful. If unsuccessful then the 
-#                  variable will contain "NOT_FOUND".
+#                  variable will contain "NOTFOUND".
 #   * warning_level_ - the amount of warnings desired. The available values are:
 #                       * 0 -> no special warnings provided
 #                       * 1 -> roughly equivalent to -Wall
@@ -42,7 +42,7 @@ include(CheckCCompilerFlag)
 # Warn for implicit conversions that may alter a value
 #
 function(ENABLE_C_COMPILER_WARNING_CONVERSION flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wconversion")
@@ -56,7 +56,7 @@ endfunction()
 # Warn if an undefined identifier is evaluated in an #if directive
 #
 function(ENABLE_C_COMPILER_WARNING_UNDEF_USAGE flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wundef")
@@ -71,7 +71,7 @@ endfunction()
 # target is increased.
 #
 function(ENABLE_C_COMPILER_WARNING_CAST_ALIGN flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wcast-align")
@@ -85,7 +85,7 @@ endfunction()
 # Warn on standard as well as additional checks on format strings in I/O
 #
 function(ENABLE_C_COMPILER_WARNING_FORMAT_IO_STRING_EXTRA flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wformat=2")
@@ -100,7 +100,7 @@ endfunction()
 # buffer overflow in I/O
 #
 function(ENABLE_C_COMPILER_WARNING_FORMAT_IO_STRING_OVERFLOW_EXTRA flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wformat-overflow=2")
@@ -115,7 +115,7 @@ endfunction()
 # Warn about suspicious uses of logical operators in expressions
 #
 function(ENABLE_C_COMPILER_WARNING_LOGICAL_OPERATIONS_PARENTHESIS flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
 
   # gcc
   set(flag_ "-Wlogical-op")
@@ -137,7 +137,7 @@ endfunction()
 # Warn when a value of type float is implicitly promoted to double
 #
 function(ENABLE_C_COMPILER_WARNING_DOUBLE_PROMOTION flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wdouble-promotion")
@@ -151,7 +151,7 @@ endfunction()
 # Warn if variables are shadowed
 #
 function(ENABLE_C_COMPILER_WARNING_SHADOW flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wshadow")
@@ -166,7 +166,7 @@ endfunction()
 # by -pedantic
 #
 function(ENABLE_C_COMPILER_WARNING_LONG_LONG flag_name_ yesnoflag_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   if (yesnoflag_)
@@ -186,7 +186,7 @@ endfunction()
 # Warn on standard checks on format strings in I/O. Typically enabled by -Wall
 #
 function(ENABLE_C_COMPILER_WARNING_FORMAT_IO_STRING flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wformat")
@@ -201,7 +201,7 @@ endfunction()
 # by -Wformat 
 #
 function(ENABLE_C_COMPILER_WARNING_FORMAT_IO_STRING_OVERFLOW flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wformat-overflow")
@@ -215,7 +215,7 @@ endfunction()
 # Warn if conversion to smaller type
 #
 function(ENABLE_C_COMPILER_WARNING_NARROWING flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wnarrowing")
@@ -229,7 +229,7 @@ endfunction()
 # Warn about code that might violate strict aliasing rules
 #
 function(ENABLE_C_COMPILER_WARNING_STRICT_ALIASING flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-fstrict-aliasing -Wstrict-aliasing")
@@ -246,7 +246,7 @@ endfunction()
 # Warn if trying to write to string constant address space
 #
 function(ENABLE_C_COMPILER_WARNING_WRITE_STRINGS flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Wwrite-strings")
@@ -260,7 +260,7 @@ endfunction()
 # Turn any compiler warning into error
 #
 function(ENABLE_C_COMPILER_WARNING_AS_ERROR flag_name_)
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
   
   # gcc, clang
   set(flag_ "-Werror")
@@ -282,7 +282,7 @@ endfunction()
 function(ENABLE_C_WARNING_LEVEL flag_name_ warning_level_)
 
   # default setting of result
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
 
   # flags for level 0
   if(warning_level_ EQUAL 0)
@@ -306,88 +306,61 @@ function(ENABLE_C_WARNING_LEVEL flag_name_ warning_level_)
       if (warning_level_ GREATER 2)
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_CONVERSION(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C type conversion "
-                          "warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_UNDEF_USAGE(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C undefined macro "
-                          "usage warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_CAST_ALIGN(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C cast alignment "
-                          "warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_FORMAT_IO_STRING_EXTRA(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for extra C I/O format "
-                          "string warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_FORMAT_IO_STRING_OVERFLOW(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C I/O format string "
-                          "overflow warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_LOGICAL_OPERATIONS_PARENTHESIS(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C logical operations "
-                          "parenthesis warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_DOUBLE_PROMOTION(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C I/O implicit float "
-                          "promotion to double warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_SHADOW(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C variable "
-                          "shadowing warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
 
         set(FLAG_STRING "")
         ENABLE_C_COMPILER_WARNING_WRITE_STRINGS(FLAG_STRING)
-        if (${FLAG_STRING} STREQUAL "NOT_FOUND")
-          message(WARNING "Could not determine flag for C write strings "
-                          "warning")
-        else()
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+        if (FLAG_STRING)
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         endif()
       endif()
       set(${flag_name_} ${FINAL_STRING} PARENT_SCOPE)
       if (warning_level_ GREATER 3)
-        set(${FLAG_NAME_} "NOT_FOUND" PARENT_SCOPE)
+        set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
         message(WARNING "Unsupported/Invalid C warning level "
                         "->${warning_level_}<- provided")
       endif()
