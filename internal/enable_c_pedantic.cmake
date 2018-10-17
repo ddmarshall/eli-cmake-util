@@ -31,7 +31,7 @@ include(CheckCCompilerFlag)
 function(ENABLE_C_PEDANTIC flag_name_)
 
   # default setting of result
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
 
   set(FLAG_STRING "-pedantic") # gcc, clang
   check_c_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_C_PEDANTIC)

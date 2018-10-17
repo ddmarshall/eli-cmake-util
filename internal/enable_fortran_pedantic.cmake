@@ -31,7 +31,7 @@ include(CheckFortranCompilerFlag)
 function(ENABLE_FORTRAN_PEDANTIC flag_name_)
 
   # default setting of result
-  set(${flag_name_} "NOT_FOUND" PARENT_SCOPE)
+  set(${flag_name_} "NOTFOUND" PARENT_SCOPE)
 
   set(FLAG_STRING "-pedantic") # gcc, clang
   check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_FORTRAN_PEDANTIC)
