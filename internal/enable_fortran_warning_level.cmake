@@ -75,13 +75,13 @@ function(ENABLE_FORTRAN_WARNING_LEVEL flag_name_ warning_level_)
     set(FLAG_STRING "-Wall") # gfortran
     check_fortran_compiler_flag(${FLAG_STRING} COMPILER_SUPPORT_FORTRAN_WALL)
     if (COMPILER_SUPPORT_FORTRAN_WALL)
-      set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+      list(APPEND FINAL_STRING ${FLAG_STRING})
       if (warning_level_ GREATER 1)
         set(FLAG_STRING "-Wextra") # gfortran
         check_fortran_compiler_flag(${FLAG_STRING} 
                                     COMPILER_SUPPORT_FORTRAN_WEXTRA)
         if (COMPILER_SUPPORT_FORTRAN_WEXTRA)
-          set(FINAL_STRING "${FINAL_STRING} ${FLAG_STRING}")
+          list(APPEND FINAL_STRING ${FLAG_STRING})
         else()
           message(WARNING "Could not determine flags for Fortran warning "
                           "level 2")
