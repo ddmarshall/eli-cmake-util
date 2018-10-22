@@ -72,13 +72,14 @@ if(NOT GTEST_FOUND)
   # set the hash information
   #
   set(GTEST_SHA512_180 "1dbece324473e53a83a60601b02c92c089f5d314761351974e097b2cf4d24af4296f9eb8653b6b03b1e363d9c5f793897acae1f0c7ac40149216035c4d395d9d")
+  set(GETST_SHA512_181 "e6283c667558e1fd6e49fa96e52af0e415a3c8037afe1d28b7ff1ec4c2ef8f49beb70a9327b7fc77eb4052a58c4ccad8b5260ec90e4bceeac7a46ff59c4369d7")
 
   #
   # set the general versions
   #
-  set(GTEST_VERSION_LATEST    "1.8.0")
-  set(GTEST_1_VERSION_LATEST  "1.8.0")
-  set(GTEST_18_VERSION_LATEST "1.8.0")
+  set(GTEST_VERSION_LATEST    "1.8.1")
+  set(GTEST_1_VERSION_LATEST  "1.8.1")
+  set(GTEST_18_VERSION_LATEST "1.8.1")
 
   #
   # figure out what the user wants
@@ -158,6 +159,8 @@ if(NOT GTEST_FOUND)
       if (gtest_req_MINOR_VERSION EQUAL 8)
         if (gtest_req_PATCH_VERSION EQUAL 0)
           set(_gtest_sha512  ${GTEST_SHA512_180})
+        elseif(gtest_req_PATCH_VERSION EQUAL 1)
+          set(_gtest_sha512  ${GTEST_SHA512_181})
         else()
           message(FATAL_ERROR " Unknown GTest vesion ->${_gtest_version}<- for hash setting.")
         endif()
@@ -193,11 +196,11 @@ if(NOT GTEST_FOUND)
                           URL_HASH SHA512=${_gtest_sha512}
                           CMAKE_ARGS      -DCMAKE_INSTALL_PREFIX=${GTEST_BINARY_DIR}
                                           -DCMAKE_INSTALL_MESSAGE=NEVER
-                                          -Dgtest_disable_pthreads=TRUE
                                           -Wno-dev
                           INSTALL_COMMAND ${CMAKE_COMMAND} 
                                           --build ${GTEST_BINARY_DIR}/src/googletest-build
-                                          --target install)
+                                          --target install
+      )
 
       #
       # set the variables that are needed out of this
